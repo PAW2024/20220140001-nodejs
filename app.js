@@ -31,13 +31,17 @@ app.use('/', authRoutes);
 
 app.get('/', isAuthenticated, (req, res) => {
     res.render('index', {
-        layout: 'layouts/main-layout'
+        layout: 'layouts/main-layout',
+        currentPage: 'home',  // Pass 'home' as the current page
+        showNavbar: true
     });
 });
 
 app.get('/contact',isAuthenticated, (req, res) => {
     res.render('contact', {
-        layout: 'layouts/main-layout'
+        layout: 'layouts/main-layout',
+        currentPage: 'contact',  // Pass 'contact' as the current page
+        showNavbar: true
     });
 });
 
@@ -46,7 +50,9 @@ app.get('/todo-view',isAuthenticated, (req, res) => {
         if (err) return res.status(500).send('Internal Server Error');
         res.render('todo', {
             layout: 'layouts/main-layout',
-            todos: todos
+            todos: todos,
+            currentPage: 'todo',  // Pass 'todo' as the current page
+            showNavbar: true
         });
     });
 });
@@ -54,3 +60,5 @@ app.get('/todo-view',isAuthenticated, (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
 });
+
+app.use(express.static("public"));
